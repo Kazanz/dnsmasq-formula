@@ -42,6 +42,15 @@
       'dnsmasq_addresses': '/usr/local/etc/dnsmasq.d/addresses.conf',
       'group': 'wheel',
     },
+    'Raspbian': {
+        'service': 'dnsmasq',
+        'dnsmasq_conf': '/etc/dnsmasq.conf',
+        'dnsmasq_conf_dir': '/etc/dnsmasq.d',
+        'dnsmasq_hosts': '/etc/dnsmasq.hosts',
+        'dnsmasq_cnames': '/etc/dnsmasq.d/cnames.conf',
+        'dnsmasq_addresses': '/etc/dnsmasq.d/addresses.conf',
+        'group': 'root',
+    },
 } %}
 
 {% set saltversion=grains.get('saltversion', '') %}
