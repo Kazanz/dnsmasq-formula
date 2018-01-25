@@ -42,20 +42,6 @@
       'dnsmasq_addresses': '/usr/local/etc/dnsmasq.d/addresses.conf',
       'group': 'wheel',
     },
-    'Raspbian': {
-        'service': 'dnsmasq',
-        'dnsmasq_conf': '/etc/dnsmasq.conf',
-        'dnsmasq_conf_dir': '/etc/dnsmasq.d',
-        'dnsmasq_hosts': '/etc/dnsmasq.hosts',
-        'dnsmasq_cnames': '/etc/dnsmasq.d/cnames.conf',
-        'dnsmasq_addresses': '/etc/dnsmasq.d/addresses.conf',
-        'group': 'root',
-    },
 } %}
 
-{% set saltversion=grains.get('saltversion', '') %}
-{% if saltversion.startswith('0.17') or saltversion.startswith('2') %} {# y3k problem #}
-{% set dnsmasq = salt['grains.filter_by'](map, merge=salt['pillar.get']('dnsmasq:lookup')) %}
-{% else %}
-{% set dnsmasq = map.get(grains.os_family) %}
-{% endif %}
+{% set dnsmasq = salt['grains.filter_by'](map, grain='os_family', merge=salt['pillar.get']('dnsmasq:lookup')) %}
